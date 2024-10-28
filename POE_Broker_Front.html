@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>POE Broker</title>
+
+</head>
+<body>
+<button type="button" onclick="test()" > Test </button>
+</body>
+<script type="text/javascript">
+
+    async function test(){
+        result = await fetch('http://localhost:8080', { mode: 'no-cors'})
+
+        const res = await result.text()
+        console.log(result)
+
+        alert(res)
+    }
+
+</script>
+</html>
