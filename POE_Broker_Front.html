@@ -1,23 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <title>POE Broker</title>
+  <head>
+    <meta charset="utf-8" />
+    <title>POE Broker</title>
+  </head>
+  <body>
+    <button type="button" id="bouton">Test</button>
 
-</head>
-<body>
-<button type="button" onclick="test()" > Test </button>
-</body>
-<script type="text/javascript">
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>chaosValue</th>
+      </thead>
+      <tbody id="tableau"></tbody>
+    </table>
+  </body>
+  <script type="text/javascript">
+    document.getElementById('bouton').onclick = async () => {
+      const result = await fetch('http://localhost:8080/api').then((r) => r.json());
 
-    async function test(){
-        result = await fetch('http://localhost:8080', { mode: 'no-cors'})
+      for (const item of result.lines) {
+        const tr = document.createElement('tr');
+        const name = document.createElement('td');
+        const chaosValue = document.createElement('td');
 
-        const res = await result.text()
-        console.log(result)
+        name.textContent = item.name;
+        chaosValue.textContent = item.chaosValue;
 
-        alert(res)
-    }
+        tr.appendChild(name);
+        tr.appendChild(chaosValue);
 
-</script>
+        document.getElementById('tableau').appendChild(tr);
+      }
+      // alert(res);
+    };
+  </script>
 </html>
